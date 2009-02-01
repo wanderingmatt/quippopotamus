@@ -1,0 +1,2 @@
+module QuipsHelper
+end

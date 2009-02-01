@@ -1,0 +1,12 @@
+<h1>Editing quip</h1>
+
+<% form_for(@quip) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @quip %> |
+<%= link_to 'Back', quips_path %>
