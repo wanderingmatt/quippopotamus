@@ -2,10 +2,14 @@
 
 <table>
   <tr>
+    <th>Body</th>
+    <th>Author</th>
   </tr>
 
 <% for quip in @quips %>
   <tr>
+    <td><%=h quip.body %></td>
+    <td><%=h quip.author %></td>
     <td><%= link_to 'Show', quip %></td>
     <td><%= link_to 'Edit', edit_quip_path(quip) %></td>
     <td><%= link_to 'Destroy', quip, :confirm => 'Are you sure?', :method => :delete %></td>
