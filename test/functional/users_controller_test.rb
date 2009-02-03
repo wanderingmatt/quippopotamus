@@ -1,45 +1,67 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
+require 'users_controller'
 
-class UsersControllerTest < ActionController::TestCase
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:users)
+# Re-raise errors caught by the controller.
+class UsersController; def rescue_action(e) raise e end; end
+
+class UsersControllerTest < Test::Unit::TestCase
+  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
+  # Then, you can remove it from this and the units test.
+  include AuthenticatedTestHelper
+
+  fixtures :users
+
+  def setup
+    @controller = UsersController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create user" do
-    assert_difference('User.count') do
-      post :create, :user => { }
+  def test_should_allow_signup
+    assert_difference 'User.count' do
+      create_user
+      assert_response :redirect
     end
-
-    assert_redirected_to user_path(assigns(:user))
   end
 
-  test "should show user" do
-    get :show, :id => users(:one).id
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, :id => users(:one).id
-    assert_response :success
-  end
-
-  test "should update user" do
-    put :update, :id => users(:one).id, :user => { }
-    assert_redirected_to user_path(assigns(:user))
-  end
-
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete :destroy, :id => users(:one).id
+  def test_should_require_login_on_signup
+    assert_no_difference 'User.count' do
+      create_user(:login => nil)
+      assert assigns(:user).errors.on(:login)
+      assert_response :success
     end
-
-    assert_redirected_to users_path
   end
+
+  def test_should_require_password_on_signup
+    assert_no_difference 'User.count' do
+      create_user(:password => nil)
+      assert assigns(:user).errors.on(:password)
+      assert_response :success
+    end
+  end
+
+  def test_should_require_password_confirmation_on_signup
+    assert_no_difference 'User.count' do
+      create_user(:password_confirmation => nil)
+      assert assigns(:user).errors.on(:password_confirmation)
+      assert_response :success
+    end
+  end
+
+  def test_should_require_email_on_signup
+    assert_no_difference 'User.count' do
+      create_user(:email => nil)
+      assert assigns(:user).errors.on(:email)
+      assert_response :success
+    end
+  end
+  
+
+  
+
+  protected
+    def create_user(options = {})
+      post :create, :user => { :login => 'quire', :email => 'quire@example.com',
+        :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+    end
 end
