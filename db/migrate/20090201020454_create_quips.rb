@@ -1,7 +1,7 @@
 class CreateQuips < ActiveRecord::Migration
   def self.up
     create_table :quips do |t|
-      t.string :quip
+      t.string :body
       t.string :author
       t.timestamps
     end
