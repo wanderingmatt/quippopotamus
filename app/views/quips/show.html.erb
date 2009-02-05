@@ -8,6 +8,11 @@
   <%=h @quip.author %>
 </p>
 
+<p>
+  <b>Tags:</b>
+  <%=h @quip.tag_list %>
+</p>
+
 
 <%= link_to 'Edit', edit_quip_path(@quip) %> |
 <%= link_to 'Back', quips_path %>
