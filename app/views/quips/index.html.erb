@@ -10,7 +10,7 @@
 <% for quip in @quips %>
   <tr>
     <td><%=h quip.body %></td>
-    <td><%=h quip.author %></td>
+    <td><%=h quip.author.name %></td>
     <td><%=h quip.tag_list %></td>
     <td><%= link_to 'Show', quip %></td>
     <td><%= link_to 'Edit', edit_quip_path(quip) %></td>

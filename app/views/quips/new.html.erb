@@ -8,8 +8,9 @@
     <%= f.text_area :body %>
   </p>
   <p>
-    <%= f.label :author %><br />
-    <%= f.text_field :author %>
+    <%= f.label :author_id %><br />
+    <%= f.select :author_id, Author.find(:all).map { |author| [author.name, author.id] } %>
+    <%= link_to 'Add a New Author', :controller => 'authors', :action => 'new' %>
   </p>
   <p>
     <%= f.label :tags %><br />
