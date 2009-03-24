@@ -6,12 +6,14 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Authors: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'reset' %>
+  <%= stylesheet_link_tag '960' %>
+  <%= stylesheet_link_tag 'globals' %>
 </head>
 <body>
-
-<p style="color: green"><%= flash[:notice] %></p>
-
-<%= yield  %>
-
+  <div class="container_12">
+    <p style="color: green"><%= flash[:notice] %></p>
+    <%= yield  %>
+  </div>
 </body>
 </html>
