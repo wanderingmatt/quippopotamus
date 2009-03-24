@@ -19,6 +19,15 @@
 <% end %>
 </table>
 
+<% if @tags %>
+  <ul>
+  <% for tag in @tags %>
+    <li>
+      <strong><%= tag.name %></strong> (<%= tag.count %>)
+    </li>
+  <% end %>
+  </ul>
+<% end %>
 <br />
 
 <%= link_to 'New quip', new_quip_path %>

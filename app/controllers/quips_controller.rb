@@ -3,6 +3,7 @@ class QuipsController < ApplicationController
   # GET /quips.xml
   def index
     @quips = Quip.find(:all)
+    @tags = tag_list
 
     respond_to do |format|
       format.html # index.html.erb
@@ -81,5 +82,11 @@ class QuipsController < ApplicationController
       format.html { redirect_to(quips_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def tag_list
+    @tags = Array.new
+    all_tags = Quip.tag_counts
+    all_tags.each { |tag| @tags << { :name => tag.name, :count => tag.count}}
   end
 end
